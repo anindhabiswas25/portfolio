@@ -72,10 +72,8 @@ export default function Hero() {
         <div className="flex flex-row justify-between w-full items-center gap-3 pr-3 sm:pr-0 min-w-0 flex-1">
           <div className="flex flex-col items-start text-left min-w-0 flex-1">
             <div
-              onClick={() => {
-                playTone();
-                setDp((d) => (d + 1) % avatars.length);
-              }}
+              onPointerDown={() => playTone()}
+              onClick={() => setDp((d) => (d + 1) % avatars.length)}
               className="cursor-pointer mb-2 text-white dark:text-neutral-600"
             >
               <ContrastIcon

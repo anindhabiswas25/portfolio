@@ -26,7 +26,6 @@ function ThemeToggle() {
   }, []);
 
   const toggle = () => {
-    playTone();
     const next = !light;
     setLight(next);
     document.documentElement.classList.toggle("dark", next);
@@ -36,6 +35,7 @@ function ThemeToggle() {
   return (
     <div className="text-white dark:text-neutral-500 flex cursor-pointer hover:bg-neutral-900 active:scale-98 dark:hover:bg-neutral-100 rounded-md justify-center items-center transition-all duration-200">
       <button
+        onPointerDown={() => playTone()}
         onClick={toggle}
         aria-label="Toggle theme"
         className="cursor-pointer h-9 w-9 flex justify-center items-center rounded-md"

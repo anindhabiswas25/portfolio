@@ -233,5 +233,5 @@ export const favourites: Favourite[] = [
 
 export const quote = {
   text: "“The fool doth think he is wise, but the wise man knows himself to be a fool.”",
-  author: "William Shakespeare, As You Like It",
+  author: "William Shakespeare",
 };
