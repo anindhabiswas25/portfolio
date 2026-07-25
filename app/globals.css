@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #0f0e0e;
+  --foreground: #ffffff;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+.dark body {
+  background: #ffffff;
+  color: #0a0a0a;
+}
+
+.font-serif-display {
+  font-family: var(--font-instrument-serif), Georgia, serif;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* letter drop-in animation for the rotating role text */
+@keyframes letter-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.6em);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.letter-in {
+  display: inline-block;
+  animation: letter-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* shimmer sweep for the Let's Talk button */
+@keyframes shimmer-sweep {
+  0% {
+    transform: translateX(-150%) skewX(-15deg);
+  }
+  100% {
+    transform: translateX(350%) skewX(-15deg);
+  }
+}
+.animate-shimmer {
+  animation: shimmer-sweep 2.2s ease-in-out infinite;
+}
