@@ -34,9 +34,9 @@ export function Quote() {
         <p className="text-[20px] md:text-[30px] text-center italic font-normal tracking-wide leading-snug text-neutral-300 dark:text-neutral-700">
           {quote.text}
         </p>
-        <div className="flex items-center gap-3 w-full justify-center mt-2">
+        <div className="flex flex-wrap items-center gap-3 w-full justify-center mt-2">
           <div className="h-[1px] w-8 bg-neutral-800 dark:bg-neutral-300" />
-          <p className="text-sm text-neutral-500">{quote.author}</p>
+          <p className="text-sm text-neutral-500 text-center">{quote.author}</p>
           <div className="h-[1px] w-8 bg-neutral-800 dark:bg-neutral-300" />
         </div>
       </div>

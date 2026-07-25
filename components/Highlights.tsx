@@ -11,6 +11,7 @@ export default function Highlights() {
   const drag = useRef({ startX: 0, scrollLeft: 0 });
   const paused = useRef(false);
   const hovering = useRef(false);
+  const pos = useRef(0);
   const resumeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const pause = () => {
@@ -31,28 +32,31 @@ export default function Highlights() {
     const el = scrollRef.current;
     if (!el) return;
     let raf = 0;
-    const third = () => el.scrollWidth / 3;
-    el.scrollLeft = third();
+    let oneThird = el.scrollWidth / 3;
+
+    // drive scroll from a float accumulator — reading scrollLeft back would
+    // lose the sub-pixel step on mobile browsers that floor it, freezing it
+    pos.current = oneThird;
+    el.scrollLeft = pos.current;
+
+    const onResize = () => {
+      oneThird = el.scrollWidth / 3;
+    };
+    window.addEventListener("resize", onResize);
 
     const step = () => {
       if (!paused.current && !hovering.current) {
-        el.scrollLeft += 0.6;
-        if (el.scrollLeft >= 2 * third()) el.scrollLeft -= third();
+        pos.current += 0.6;
+        if (pos.current >= 2 * oneThird) pos.current -= oneThird;
+        el.scrollLeft = pos.current;
       }
       raf = requestAnimationFrame(step);
     };
     raf = requestAnimationFrame(step);
 
-    const onScroll = () => {
-      const d = third();
-      if (el.scrollLeft >= 2 * d) el.scrollLeft -= d;
-      else if (el.scrollLeft <= d - el.clientWidth) el.scrollLeft += d;
-    };
-    el.addEventListener("scroll", onScroll);
-
     return () => {
       cancelAnimationFrame(raf);
-      el.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
       if (resumeTimer.current) clearTimeout(resumeTimer.current);
     };
   }, []);
@@ -67,9 +71,11 @@ export default function Highlights() {
   };
 
   const onPointerMove = (e: React.PointerEvent) => {
-    if (!dragging || !scrollRef.current) return;
-    scrollRef.current.scrollLeft =
+    const el = scrollRef.current;
+    if (!dragging || !el) return;
+    el.scrollLeft =
       drag.current.scrollLeft - (e.clientX - drag.current.startX) * 1.5;
+    pos.current = el.scrollLeft;
   };
 
   const endDrag = () => {

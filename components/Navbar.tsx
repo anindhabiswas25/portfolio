@@ -62,12 +62,14 @@ export default function Navbar() {
   const [moreOpen, setMoreOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const mobileRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     function onClickOutside(e: MouseEvent) {
-      if (mobileRef.current && !mobileRef.current.contains(e.target as Node)) {
-        setMobileOpen(false);
-      }
+      const target = e.target as Node;
+      const insideToggle = mobileRef.current?.contains(target);
+      const insideMenu = menuRef.current?.contains(target);
+      if (!insideToggle && !insideMenu) setMobileOpen(false);
     }
     if (mobileOpen) document.addEventListener("mousedown", onClickOutside);
     return () => document.removeEventListener("mousedown", onClickOutside);
@@ -188,7 +190,10 @@ export default function Navbar() {
           </div>
 
           {mobileOpen && (
-            <div className="absolute top-12 right-0 left-0 md:hidden bg-[#0F0E0E] dark:bg-white border-b border-dashed border-[#272727] dark:border-neutral-200 flex flex-col px-4 py-3 gap-2">
+            <div
+              ref={menuRef}
+              className="absolute top-12 right-0 left-0 md:hidden bg-[#0F0E0E] dark:bg-white border-b border-dashed border-[#272727] dark:border-neutral-200 flex flex-col px-4 py-3 gap-2"
+            >
               {[...links, ...moreLinks.map((m) => ({ id: m.label, label: m.label, href: m.href }))].map(
                 (link) => (
                   <Link
