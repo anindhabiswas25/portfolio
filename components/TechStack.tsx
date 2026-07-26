@@ -74,7 +74,7 @@ export default function TechStack() {
               <div className="hover:text-white text-neutral-400 dark:text-neutral-600 hover:dark:text-black border border-[#272727] dark:border-neutral-300 rounded-md px-2.5 py-1.5 flex items-center gap-2 transition-all duration-200 hover:bg-white/2 dark:hover:bg-black/2 cursor-pointer">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={`https://cdn.simpleicons.org/${tech.slug}`}
+                  src={tech.icon ?? `https://cdn.simpleicons.org/${tech.slug}`}
                   alt=""
                   className="size-3.5 sm:size-4 opacity-80 group-hover:opacity-100 transition-opacity"
                 />

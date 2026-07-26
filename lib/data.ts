@@ -103,7 +103,13 @@ export type TechCategory =
   | "Design"
   | "Tools";
 
-export const techStack: { name: string; slug: string; category: TechCategory }[] = [
+export const techStack: {
+  name: string;
+  slug: string;
+  category: TechCategory;
+  // Set when Simple Icons has no icon for the slug; served from /public instead.
+  icon?: string;
+}[] = [
   { name: "Solidity", slug: "solidity", category: "Web3" },
   { name: "Rust", slug: "rust", category: "Web3" },
   { name: "Ethers.js", slug: "ethers", category: "Web3" },
@@ -115,6 +121,19 @@ export const techStack: { name: string; slug: string; category: TechCategory }[]
   { name: "Stellar", slug: "stellar", category: "Chains" },
   { name: "Solana", slug: "solana", category: "Chains" },
   { name: "Algorand", slug: "algorand", category: "Chains" },
+  {
+    name: "Avalanche",
+    slug: "avalanche",
+    category: "Chains",
+    icon: "/icons/avalanche.svg",
+  },
+  {
+    name: "Initia",
+    slug: "initia",
+    category: "Chains",
+    icon: "/icons/initia.svg",
+  },
+  { name: "Celo", slug: "celo", category: "Chains", icon: "/icons/celo.svg" },
   { name: "JavaScript", slug: "javascript", category: "Frontend" },
   { name: "TypeScript", slug: "typescript", category: "Frontend" },
   { name: "React", slug: "react", category: "Frontend" },
